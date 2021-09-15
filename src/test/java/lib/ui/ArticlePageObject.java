@@ -126,12 +126,16 @@ abstract public class ArticlePageObject extends MainPageObject{
     public void addArticlesToSaved()
     {
         if (Platform.getInstance().isMWeb()) {
-            this.removeArticleFromSavedIfItWasAdded();
+            this.waitForElementAndClick(
+                    ADD_TO_SAVED_BUTTON,
+                    "Cannot find bookmark button",
+                    30);
+        } else {
+            this.waitForElementAndClick(
+                    ADD_TO_SAVED_BUTTON,
+                    "Cannot find bookmark button",
+                    5);
         }
-        this.waitForElementAndClick(
-                ADD_TO_SAVED_BUTTON,
-                "Cannot find bookmark button",
-                5);
     }
 
     public void waitForUnsavedButton()

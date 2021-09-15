@@ -34,6 +34,8 @@ public class MyListsTests extends CoreTestCase
 
         if (Platform.getInstance().isMWeb())
         {
+            ArticlePageObject.addArticlesToSaved();
+
             AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
             Auth.clickAuthButton();
             Auth.enterLoginData(login, password);
@@ -46,9 +48,9 @@ public class MyListsTests extends CoreTestCase
                     ArticlePageObject.getArticleTitle("Java (programming language)"));
 
             ArticlePageObject.addArticlesToSaved();
+        } else {
+            ArticlePageObject.addToMyListAndCreateNewList(name_of_folder);
         }
-
-        ArticlePageObject.addToMyListAndCreateNewList(name_of_folder);
 
         ArticlePageObject.closeArticle();
         SearchPageObject.closeSearch();

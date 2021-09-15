@@ -36,10 +36,15 @@ abstract public class NavigationUI extends MainPageObject
                     SAVED_BUTTON,
                     "Cannot find Saved button",
                     5);
+            this.waitForElementAndClick(
+                    SAVED_BUTTON,
+                    "Cannot find Saved button",
+                    1);
+        } else {
+            this.waitForElementAndClick(
+                    SAVED_BUTTON,
+                    "Cannot find Saved button",
+                    1);
         }
-        this.waitForElementAndClick(
-                SAVED_BUTTON,
-                "Cannot find Saved button",
-                1);
     }
 }
