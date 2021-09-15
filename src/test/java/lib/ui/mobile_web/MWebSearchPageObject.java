@@ -11,9 +11,8 @@ public class MWebSearchPageObject extends SearchPageObject {
         SEARCH_RESULT_BY_TITLE_SUBSTRING_TPL = "xpath://div[contains(@class, 'wikidata-description')][contains(text(), '{SUBSTRING}')]";
         SEARCH_RESULT_BY_DESC_SUBSTRING_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_description'][@text='{SUBSTRING}']";
         SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL =
-                "xpath://XCUIElementTypeCell" +
-                        "[.//XCUIElementTypeStaticText[@name='{TITLE}']]" +
-                        "[.//XCUIElementTypeStaticText[@name='{DESCRIPTION}']]";
+                "xpath://div/ul/li[@title='{TITLE}']" +
+                        "[.//div[contains(@class, 'wikidata-description')][contains(text(), '{DESCRIPTION}')]]";
         SEARCH_RESULT_ELEMENT = "css:ul.page-list>li.page-summary";
         SEARCH_EMPTY_RESULT = "id:No results found";
         CLOSE_SEARCH_BUTTON = "xpath://XCUIElementTypeButton[@name='Cancel']";
