@@ -80,14 +80,53 @@ public class MyListsTests extends CoreTestCase
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
-        ArticlePageObject.addArticlesToSaved();
+        ArticlePageObject.waitForTitleElementWithSubstring(first_search_line);
+        String first_article_title = ArticlePageObject.getArticleTitle(first_search_line);
+
+        if (Platform.getInstance().isMWeb())
+        {
+            ArticlePageObject.addArticlesToSaved();
+
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+
+            ArticlePageObject.waitForTitleElementWithSubstring(first_search_line);
+
+            assertEquals("We are not on the same article",
+                    first_article_title,
+                    ArticlePageObject.getArticleTitle(first_search_line));
+
+            ArticlePageObject.addArticlesToSaved();
+        } else {
+            ArticlePageObject.addArticlesToSaved();
+        }
+
         ArticlePageObject.closeArticle();
 
         SearchPageObject.clickCancelSearchButton();
 
         SearchPageObject.typeSearchLine(second_search_line);
         SearchPageObject.clickByArticleWithSubstringByTitle(second_search_line + " (film)");
-        ArticlePageObject.addArticlesToSaved();
+
+        ArticlePageObject.waitForTitleElementWithSubstring(second_search_line + " (film)");
+        String second_article_title = ArticlePageObject.getArticleTitle(second_search_line + " (film)");
+
+        if (Platform.getInstance().isMWeb())
+        {
+            ArticlePageObject.addArticlesToSaved();
+
+            ArticlePageObject.waitForTitleElementWithSubstring(second_search_line + " (film)");
+
+            assertEquals("We are not on the same article",
+                    second_article_title,
+                    ArticlePageObject.getArticleTitle(second_search_line + " (film)"));
+
+            ArticlePageObject.addArticlesToSaved();
+        } else {
+            ArticlePageObject.addArticlesToSaved();
+        }
         ArticlePageObject.closeArticle();
         SearchPageObject.closeSearch();
 
@@ -101,7 +140,11 @@ public class MyListsTests extends CoreTestCase
         MyListsPageObject MyListPageObject = MyListsPageObjectFactory.get(driver);
         MyListPageObject.waitArticleToAppear(first_search_line);
         MyListPageObject.waitArticleToAppear(second_search_line + " (film)");
-        MyListPageObject.swipeArticleToDelete(second_search_line + " (film)");
+
+       if (Platform.getInstance().isAndroid() || Platform.getInstance().isIOS()) {
+           MyListPageObject.swipeArticleToDelete(second_search_line + " (film)");
+       }
+
         MyListPageObject.openArticleFromList(first_search_line);
 
         String article_name = ArticlePageObject.getArticleTitle(first_search_line);
