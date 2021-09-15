@@ -257,4 +257,28 @@ public class MainPageObject {
             throw new IllegalArgumentException("Cannot get type of locator. Locator: " + locator_with_type);
         }
     }
+
+    public boolean isElementPresent(String locator)
+    {
+        return getAmountOfElements(locator) > 0;
+    }
+
+    public void tryClickElementWithFewAttempts(String locator, String error_message, int amount_of_attemps)
+    {
+        int current_attempts = 0;
+        boolean need_more_attempt = true;
+
+        while (need_more_attempt)
+        {
+            try {
+                this.waitForElementAndClick(locator, error_message, 1);
+                need_more_attempt = false;
+            } catch (Exception e) {
+                if (current_attempts > amount_of_attemps) {
+                    this.waitForElementAndClick(locator, error_message, 1);
+                }
+            }
+            ++ current_attempts;
+        }
+    }
 }

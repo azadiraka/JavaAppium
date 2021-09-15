@@ -1,6 +1,7 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.ArticlePageObjectFactory;
@@ -9,6 +10,9 @@ import lib.ui.factories.SearchPageObjectFactory;
 public class ChangeAppConditionTests extends CoreTestCase {
     public void testChangeScreenOrientationOnSearchResults()
     {
+        if (Platform.getInstance().isMWeb()) {
+            return;
+        }
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.clickSkipOnboardingButton();

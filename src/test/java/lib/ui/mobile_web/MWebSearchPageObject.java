@@ -8,7 +8,7 @@ public class MWebSearchPageObject extends SearchPageObject {
         SEARCH_INIT_ELEMENT = "css:button#searchIcon";
         SEARCH_INPUT = "css:form>input[type='search']";
         SEARCH_CANCEL_BUTTON = "css:button.cancel";
-        SEARCH_RESULT_BY_TITLE_SUBSTRING_TPL = "xpath:div[contains(@class, 'wikipedia-description')][contains(text(), '{SUBSTRING}')]";
+        SEARCH_RESULT_BY_TITLE_SUBSTRING_TPL = "xpath://div[contains(@class, 'wikidata-description')][contains(text(), '{SUBSTRING}')]";
         SEARCH_RESULT_BY_DESC_SUBSTRING_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_description'][@text='{SUBSTRING}']";
         SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL =
                 "xpath://XCUIElementTypeCell" +

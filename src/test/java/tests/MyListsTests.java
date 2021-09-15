@@ -2,10 +2,7 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.Platform;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListsPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
@@ -17,7 +14,9 @@ public class MyListsTests extends CoreTestCase
     private static String
             name_of_folder = "Learning programming",
             first_search_line = "Harry Potter",
-            second_search_line = "Star Wars";
+            second_search_line = "Star Wars",
+            login = "azadiraka",
+            password = "javaappium";
 
     @Test
     public void testSaveFirstArticleInMyList() {
@@ -26,18 +25,36 @@ public class MyListsTests extends CoreTestCase
         SearchPageObject.clickSkipOnboardingButton();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstringByTitle("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstringByTitle("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
         ArticlePageObject.waitForTitleElementWithSubstring("Java (programming language)");
         String article_title = ArticlePageObject.getArticleTitle("Java (programming language)");
 
+        if (Platform.getInstance().isMWeb())
+        {
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+
+            ArticlePageObject.waitForTitleElementWithSubstring("Java (programming language)");
+
+            assertEquals("We are not on the same article",
+                    article_title,
+                    ArticlePageObject.getArticleTitle("Java (programming language)"));
+
+            ArticlePageObject.addArticlesToSaved();
+        }
+
         ArticlePageObject.addToMyListAndCreateNewList(name_of_folder);
+
         ArticlePageObject.closeArticle();
         SearchPageObject.closeSearch();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+        NavigationUI.openNavigation();
         NavigationUI.clickSaved();
 
         if (Platform.getInstance().isIOS()) {

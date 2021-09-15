@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class SearchPageObject extends MainPageObject{
@@ -46,6 +47,9 @@ abstract public class SearchPageObject extends MainPageObject{
 
     public void clickSkipOnboardingButton()
     {
+        if (Platform.getInstance().isMWeb()) {
+            return;
+        }
         this.waitForElementAndClick(SKIP_ONBOARDING, "Cannot find and click on SKIP onboarding button", 5);
     }
 

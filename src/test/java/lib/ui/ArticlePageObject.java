@@ -13,6 +13,7 @@ abstract public class ArticlePageObject extends MainPageObject{
             ADD_TO_SAVED_BUTTON,
             REMOVE_FROM_SAVED_BUTTON,
             ADD_TO_ANOTHER_LIST_BUTTON,
+            OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
             CREATE_NEW_LIST_BUTTON,
             NAME_OF_LIST_INPUT,
             OK_BUTTON,
@@ -124,6 +125,9 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     public void addArticlesToSaved()
     {
+        if (Platform.getInstance().isMWeb()) {
+            this.removeArticleFromSavedIfItWasAdded();
+        }
         this.waitForElementAndClick(
                 ADD_TO_SAVED_BUTTON,
                 "Cannot find bookmark button",
@@ -140,10 +144,15 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     public void closeArticle()
     {
-        this.waitForElementAndClick(
-                CLOSE_ARTICLE_BUTTON,
-                "Cannot find <- button",
-                1);
+        if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid())
+        {
+            this.waitForElementAndClick(
+                    CLOSE_ARTICLE_BUTTON,
+                    "Cannot find <- button",
+                    1);
+        } else {
+            System.out.println("Method closeArticle() does nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
     }
 
     public void assertArticleHasATextInTitle(String article_name)
@@ -162,5 +171,14 @@ abstract public class ArticlePageObject extends MainPageObject{
                 CLOSE_SYNC_ARTICLES_POPUP,
                 "Cannot find and close sync articles popup",
                 5);
+    }
+
+    public void removeArticleFromSavedIfItWasAdded()
+    {
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON))
+        {
+            this.waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "Cannot find and remove an article from Saved", 2);
+            this.waitForElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "Cannot find the button to add an article to Saved after removing ot from Saved", 3);
+        }
     }
 }

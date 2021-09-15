@@ -16,6 +16,7 @@ public class MWebArticlePageObject extends ArticlePageObject {
         OK_BUTTON = "xpath://XCUIElementTypeButton[@name='Create reading list']";
         CLOSE_ARTICLE_BUTTON = "id:Back";
         CLOSE_SYNC_ARTICLES_POPUP = "id:Close";
+        OPTIONS_REMOVE_FROM_MY_LIST_BUTTON = "css:#page-actions a#ca-watch.watched button";
     }
 
     public MWebArticlePageObject(RemoteWebDriver driver)
