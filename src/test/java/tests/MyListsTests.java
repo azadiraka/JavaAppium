@@ -7,6 +7,7 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase
@@ -43,7 +44,7 @@ public class MyListsTests extends CoreTestCase
 
             ArticlePageObject.waitForTitleElementWithSubstring("Java (programming language)");
 
-            assertEquals("We are not on the same article",
+            Assert.assertEquals("We are not on the same article",
                     article_title,
                     ArticlePageObject.getArticleTitle("Java (programming language)"));
 
@@ -94,7 +95,7 @@ public class MyListsTests extends CoreTestCase
 
             ArticlePageObject.waitForTitleElementWithSubstring(first_search_line);
 
-            assertEquals("We are not on the same article",
+            Assert.assertEquals("We are not on the same article",
                     first_article_title,
                     ArticlePageObject.getArticleTitle(first_search_line));
 
@@ -119,7 +120,7 @@ public class MyListsTests extends CoreTestCase
 
             ArticlePageObject.waitForTitleElementWithSubstring(second_search_line + " (film)");
 
-            assertEquals("We are not on the same article",
+            Assert.assertEquals("We are not on the same article",
                     second_article_title,
                     ArticlePageObject.getArticleTitle(second_search_line + " (film)"));
 

@@ -1,15 +1,18 @@
 package tests;
 
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ArticleTests extends CoreTestCase {
 
     @Test
+    @DisplayName("Compare article title with expected one")
     public void testCompareArticleTitle(){
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -21,7 +24,7 @@ public class ArticleTests extends CoreTestCase {
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
         String article_title = ArticlePageObject.getArticleTitle("Java (programming language)");
-        assertEquals(
+        Assert.assertEquals(
                 "We see unexpected title",
                 "Java (programming language)",
                 article_title
@@ -29,6 +32,7 @@ public class ArticleTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Swipe article to the footer")
     public void testSwipeArticle(){
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -43,17 +47,17 @@ public class ArticleTests extends CoreTestCase {
         ArticlePageObject.swipeToFooter();
     }
 
-    @Test
-    public void testArticleTitlePresent(){
-        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-
-        SearchPageObject.clickSkipOnboardingButton();
-        SearchPageObject.initSearchInput();
-        String search_line = "iOS";
-        SearchPageObject.typeSearchLine(search_line);
-        SearchPageObject.clickByArticleWithSubstringByDescription("Mobile operating system by Apple");
-
-        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
-        ArticlePageObject.waitForTitleElementWithSubstring(search_line);
-    }
+//    @Test
+//    public void testArticleTitlePresent(){
+//        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
+//
+//        SearchPageObject.clickSkipOnboardingButton();
+//        SearchPageObject.initSearchInput();
+//        String search_line = "iOS";
+//        SearchPageObject.typeSearchLine(search_line);
+//        SearchPageObject.clickByArticleWithSubstringByDescription("Mobile operating system by Apple");
+//
+//        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+//        ArticlePageObject.waitForTitleElementWithSubstring(search_line);
+//    }
 }
