@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -29,6 +30,7 @@ abstract public class MyListsPageObject extends MainPageObject
         super(driver);
     }
 
+    @Step("Open created folder in saved reading lists")
     public void openFolderByName(String name_of_folder)
     {
         String folder_name_xpath = getFolderNameByXPath(name_of_folder);
@@ -45,6 +47,7 @@ abstract public class MyListsPageObject extends MainPageObject
                 5);
     }
 
+    @Step("Waiting article with expected title is present in saved reading list")
     public void waitArticleToAppear(String article_title)
     {
         String article_xpath = getSavedArticleByXPath(article_title);
@@ -54,6 +57,7 @@ abstract public class MyListsPageObject extends MainPageObject
                 10);
     }
 
+    @Step("Waiting article with expected title is not present in saved reading list")
     public void waitArticleToDisappear(String article_title)
     {
         String article_xpath = getSavedArticleByXPath(article_title);
@@ -63,6 +67,7 @@ abstract public class MyListsPageObject extends MainPageObject
                 10);
     }
 
+    @Step("Swipe article to delete from saved reading list")
     public void swipeArticleToDelete(String article_title)
     {
         this.waitArticleToAppear(article_title);
@@ -79,6 +84,7 @@ abstract public class MyListsPageObject extends MainPageObject
         this.waitArticleToDisappear(article_title);
     }
 
+    @Step("Open article from saved reading list")
     public void openArticleFromList(String article_name)
     {
         String article_xpath = getSavedArticleByXPath(article_name);

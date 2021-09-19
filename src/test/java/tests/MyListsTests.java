@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -10,6 +12,9 @@ import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.xml.bind.ValidationEventLocator;
+
+@Epic("Tests for reading lists")
 public class MyListsTests extends CoreTestCase
 {
     private static String
@@ -20,6 +25,10 @@ public class MyListsTests extends CoreTestCase
             password = "javaappium";
 
     @Test
+    @DisplayName("Saving one article in saved reading list")
+    @Features(value = {@Feature(value = "Search"), @Feature(value = "Article"), @Feature(value = "My lists"), @Feature(value = "Authorization")})
+    @Description("We open arcicle and add it to saved reading list (for mobile apps we created a new reading list '{name_of_folder}')")
+    @Step("Starting test testSaveFirstArticleInMyList()")
     public void testSaveFirstArticleInMyList() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -70,6 +79,10 @@ public class MyListsTests extends CoreTestCase
     }
 
     @Test
+    @DisplayName("Saving two articles in saved reading list")
+    @Features(value = {@Feature(value = "Search"), @Feature(value = "Article"), @Feature(value = "My lists"), @Feature(value = "Authorization")})
+    @Description("We two arcicles '{first_search_line}' and '{second_search_line}' and add it to saved reading list (for mobile apps we created a new reading list)")
+    @Step("Starting test testAddTwoArticlesToSaved()")
     public void testAddTwoArticlesToSaved() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 

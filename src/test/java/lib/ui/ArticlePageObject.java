@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -32,15 +33,18 @@ abstract public class ArticlePageObject extends MainPageObject{
     }
     /* TEMPLATE METHODS */
 
+    @Step("Waiting that title '{article_title}' has expected substring in title")
     public WebElement waitForTitleElementWithSubstring(String substring)
     {
         String article_title = getArticleTitleWithSubstring(substring);
         return this.waitForElementPresent(article_title, "Cannot find the title of article. The title is " + substring, 5);
     }
 
+    @Step("Getting article title")
     public String getArticleTitle(String substring)
     {
         WebElement title_element = waitForTitleElementWithSubstring(substring);
+        screenshot(this.takeScreenshot("article_title"));
         if (Platform.getInstance().isAndroid()) {
             return title_element.getAttribute("text");
         } else if (Platform.getInstance().isIOS()) {
@@ -50,6 +54,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Swiping article to the footer")
     public void swipeToFooter()
     {
         if (Platform.getInstance().isAndroid()){
@@ -70,6 +75,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Creating new reading list and adding article in it")
     public void addToMyListAndCreateNewList(String name_of_folder)
     {
         if (Platform.getInstance().isAndroid()) {
@@ -123,6 +129,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Adding article to Saved reading list")
     public void addArticlesToSaved()
     {
         if (Platform.getInstance().isMWeb()) {
@@ -138,6 +145,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Waiting for 'Remove from saved' button")
     public void waitForUnsavedButton()
     {
         this.waitForElementPresent(
@@ -146,6 +154,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                 5);
     }
 
+    @Step("Closing article")
     public void closeArticle()
     {
         if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid())
@@ -159,6 +168,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Asserting that title has expected text in title")
     public void assertArticleHasATextInTitle(String article_name)
     {
         String article_xpath = getArticleTitleWithSubstring(article_name);
@@ -169,6 +179,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                 5);
     }
 
+    @Step("Closing Sync article popup in iOS app (does not work for Android and Mobile Web)")
     public void closeSyncArticlesPopupIOSApp()
     {
         this.waitForElementAndClick(

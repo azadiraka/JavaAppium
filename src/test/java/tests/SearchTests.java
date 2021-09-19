@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
@@ -8,8 +10,14 @@ import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+@Epic("Tests for search")
 public class SearchTests extends CoreTestCase {
+
     @Test
+    @DisplayName("Waiting for search result")
+    @Features(value = {@Feature(value = "Search")})
+    @Description("Waiting for search result that has expected substring")
+    @Step("Starting test testSearch()")
     public void testSearch() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -20,6 +28,10 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Cancel search")
+    @Features(value = {@Feature(value = "Search")})
+    @Description("Typing text is search input and then cancel search")
+    @Step("Starting test testCancelSearch()")
     public void testCancelSearch() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -32,6 +44,10 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Amount of non empty search")
+    @Features(value = {@Feature(value = "Search")})
+    @Description("Make query by '{search_line}' and make sure that search is not empty")
+    @Step("Starting test testAmountOfNonEmptySearch()")
     public void testAmountOfNonEmptySearch(){
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -46,6 +62,10 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Validation three search results by title and description")
+    @Features(value = {@Feature(value = "Search")})
+    @Description("Make query by 'MacBook' and make sure that three search results have expected title and description")
+    @Step("Starting test testAmountOfSearchByNameAndDescription()")
     public void testAmountOfSearchByNameAndDescription(){
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -63,6 +83,10 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Empty search")
+    @Features(value = {@Feature(value = "Search")})
+    @Description("Make query by '{search_line}' and make sure that search result is empty")
+    @Step("Starting test testAmountOfEmptySearch()")
     public void testAmountOfEmptySearch(){
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -76,6 +100,10 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Compare article title with expected one after background")
+    @Features(value = {@Feature(value = "Search"), @Feature(value = "Article")})
+    @Description("We open article and make sure that title is expected after background")
+    @Step("Starting test testElementPresentAfterBackground()")
     public void testElementPresentAfterBackground(){
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -92,6 +120,10 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Compare article title with expected one after background")
+    @Features(value = {@Feature(value = "Search")})
+    @Description("Make query by '{search_line}' and make sure that all search result have text '{search_line}' and then clear search")
+    @Step("Starting test testCancelArticleSearch()")
     public void testCancelArticleSearch() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 

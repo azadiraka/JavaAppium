@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class WelcomePageObject extends MainPageObject {
@@ -18,6 +19,7 @@ public class WelcomePageObject extends MainPageObject {
         super(driver);
     }
 
+    @Step("Wait for 'Learn more' link on onboarding page")
     public void waitForLearnMoreLink()
     {
         this.waitForElementPresent(
@@ -26,6 +28,7 @@ public class WelcomePageObject extends MainPageObject {
                 5);
     }
 
+    @Step("Wait for 'New ways to explore' link on onboarding page")
     public void waitForNewWaysToExploreText()
     {
         this.waitForElementPresent(
@@ -34,6 +37,7 @@ public class WelcomePageObject extends MainPageObject {
                 5);
     }
 
+    @Step("Wait for 'Add or edit preferred languages' link on onboarding page")
     public void waitForAddOrEditPreferredLanguagesLink()
     {
         this.waitForElementPresent(
@@ -42,6 +46,7 @@ public class WelcomePageObject extends MainPageObject {
                 5);
     }
 
+    @Step("Wait for 'Learn more about data collected' link on onboarding page")
     public void waitForLearnMoreAboutDataCollectedLink()
     {
         this.waitForElementPresent(
@@ -50,6 +55,7 @@ public class WelcomePageObject extends MainPageObject {
                 5);
     }
 
+    @Step("Click Next button on onboarding page")
     public void clickNextButton()
     {
         this.waitForElementAndClick(
@@ -58,6 +64,7 @@ public class WelcomePageObject extends MainPageObject {
                 5);
     }
 
+    @Step("Click 'Get started' button on onboarding page")
     public void clickGetStartedButton()
     {
         this.waitForElementAndClick(

@@ -1,30 +1,37 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.io.FileOutputStream;
 import java.time.Duration;
+import java.util.Properties;
 
 public class CoreTestCase {
     protected RemoteWebDriver driver;
 
     @Before
+    @Step("Run driver and session")
     public void setUp() throws Exception
     {
         driver = Platform.getInstance().getDriver();
+        this.createAllurePropertyFile();
         this.rotateScreenPortrait();
         this.openWikiWebPageForMobileWeb();
     }
 
     @After
+    @Step("Remove driver and session")
     public void tearDown()
     {
         driver.quit();
     }
 
+    @Step("Rotate screen to portrait mode")
     protected void rotateScreenPortrait()
     {
         if (driver instanceof AppiumDriver) {
@@ -35,6 +42,7 @@ public class CoreTestCase {
         }
     }
 
+    @Step("Rotate screen to landscape mode")
     protected void rotateScreenLandscape()
     {
         if (driver instanceof AppiumDriver) {
@@ -45,6 +53,7 @@ public class CoreTestCase {
         }
     }
 
+    @Step("Send mobile app to background (does nothing for Mobile Web)")
     protected void backgroundApp(int seconds)
     {
         if (driver instanceof AppiumDriver) {
@@ -55,6 +64,7 @@ public class CoreTestCase {
         }
     }
 
+    @Step("Open Wiki Page for Mobile Web (does nothing for mobile apps)")
     protected void openWikiWebPageForMobileWeb()
     {
         if (Platform.getInstance().isMWeb())
@@ -62,6 +72,23 @@ public class CoreTestCase {
             driver.get("https://en.m.wikipedia.org");
         } else {
             System.out.println("Method openWikiWebPageForMobileWeb() does nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
+    }
+
+    @Step("Creating allure property file")
+    private void createAllurePropertyFile()
+    {
+        String path = System.getProperty("allure.results.directory");
+        try
+        {
+            Properties props = new Properties();
+            FileOutputStream fos = new FileOutputStream(path + "/environment.properties");
+            props.setProperty("Environment", Platform.getInstance().getPlatformVar());
+            props.store(fos, "See https://docs.qameta.io/allure/#_environment");
+            fos.close();
+        } catch (Exception e) {
+            System.err.println("IO problem in writing allure property file");
+            e.printStackTrace();
         }
     }
 }
